@@ -29,18 +29,6 @@ pub fn build(b: *std.Build) void {
     });
     exe.root_module.addImport("vaxis", libvaxis.module("vaxis"));
 
-    const exe_check = b.addExecutable(.{
-        .name = "zterimg",
-        .root_source_file = b.path("src/main.zig"),
-        .target = target,
-        .optimize = optimize,
-    });
-    exe_check.root_module.addImport("yazap", yazap.module("yazap"));
-    exe_check.root_module.addImport("zigimg", zigimg.module("zigimg"));
-    exe_check.root_module.addImport("vaxis", libvaxis.module("vaxis"));
-    const check = b.step("check", "check whether it compiles.");
-    check.dependOn(&exe_check.step);
-
     b.installArtifact(exe);
 
     const run_cmd = b.addRunArtifact(exe);
